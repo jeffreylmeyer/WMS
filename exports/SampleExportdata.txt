@@ -1,0 +1,4 @@
+these files here are example export files from the actual running WMS
+I was using.
+
+Do not use the data, it is for educational purposes only.

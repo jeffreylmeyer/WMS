@@ -1,0 +1,44 @@
+<img src="images/intro.png" />
+
+<?php
+// show open invoices not pulled here
+// .invoices table is fed from Magento CE Remote at CORP Office when Magento Invoices are imported
+// requires the Magento CE Remote Windows program in order to work
+
+require_once("db_connect.php");
+$oss = oss_connect();
+
+mysqli_query($oss,"USE oss_inv");
+
+$sql = "SELECT DISTINCT order_no FROM invoices WHERE item_status in('OUTGOING','NEWORDER') ORDER BY recid ASC";
+
+$ttl_rows = 0;
+
+echo "<b>Pending Pulls</b><br /><br />\n\n";
+
+echo "<table border='1' cellpadding='3' cellspacing='0' width='100%'>
+	<tr><td><b>Order #</b></td><td><b>Customer</b></td><td><b>Will P/U</b></td><td><b>Status</b></td></tr>
+";
+
+
+if(!$rs = mysqli_query($oss, $sql)){
+	echo "Error querying orders or no orders found.";
+}else{
+	$rows = mysqli_num_rows($rs);
+	$ttl_rows = $rows;
+
+	if($rows > 0){
+		
+		while($rows > 0){
+			$rd = mysqli_fetch_assoc($rs);
+			echo "<tr><td>$rd[order_no]</td><td>$rd[customer_name]</td><td>" . if $rd['customer_pickup'] ? "Yes":"No" . "</td><td>$rd[item_status]</td></tr>";
+			$rows--
+		}
+		mysqli_free_result($rs);
+	}
+}
+echo "</table>\n\n";
+
+@mysqli_close($oss);
+
+?>	
