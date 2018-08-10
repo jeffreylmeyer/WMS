@@ -28,11 +28,11 @@ define("INVACCT", "130.010 - Inventory");
 $SITELOCALDBHOST = "localhost";
 $SITELOCALDBUSER = "your_mysql_user";
 $SITELOCALDBPWD = "your_mysql_password";
-
+$SITEDBNAME = "mysql_database_name";
 // magento admin
 $SITEREMOTEDBUSER = "your_mysql_user_for_remote_access";  
 $SITEREMOTEDBPWD = "your_mysql_pwd";
-$SITEDBNAME = "mysql_database_name";
+
 
 // NOTE: Magento CE direct connection is no longer used in this app
 // all imports and changes had been done with eMagicOne Store Manager PRO for Magento
